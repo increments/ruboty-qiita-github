@@ -41,6 +41,12 @@ module Ruboty
         description: "Merge pull request",
       )
 
+      on(
+        /label #{ISSUE_PATTERN} (?<labels>.+)\z/,
+        name: "label_issue",
+        description: "Label issue",
+      )
+
       def create_issue(message)
         Ruboty::Github::Actions::CreateIssue.new(message).call
       end
@@ -63,6 +69,10 @@ module Ruboty
 
       def merge_pull_request(message)
         Ruboty::Github::Actions::MergePullRequest.new(message).call
+      end
+
+      def label_issue(message)
+        Ruboty::Github::Actions::LabelIssue.new(message).call
       end
     end
   end
