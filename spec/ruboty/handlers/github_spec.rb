@@ -81,7 +81,7 @@ describe Ruboty::Handlers::Github do
       %(ruboty create issue "#{title}" on #{user}/#{repository})
     end
 
-    include_examples 'requires access token without access token'
+    it_behaves_like 'requires access token without access token'
 
     context 'with access token' do
       it 'creates a new issue with given title on given repository' do
@@ -115,7 +115,7 @@ describe Ruboty::Handlers::Github do
       %(ruboty search issues "#{query}")
     end
 
-    include_examples 'requires access token without access token'
+    it_behaves_like 'requires access token without access token'
 
     context 'with access token' do
       it 'search an issue with given query' do
@@ -169,7 +169,7 @@ describe Ruboty::Handlers::Github do
       1
     end
 
-    include_examples 'requires access token without access token'
+    it_behaves_like 'requires access token without access token'
 
     context 'with closed issue' do
       it 'replies so' do
