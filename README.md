@@ -1,5 +1,8 @@
 # Ruboty::Github
-[![Gem Version](https://badge.fury.io/rb/ruboty-qiita-github.svg)](https://badge.fury.io/rb/ruboty-qiita-github) [![Test](https://github.com/increments/ruboty-qiita-github/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/increments/ruboty-qiita-github/actions/workflows/test.yml)
+[![Gem Version](https://badge.fury.io/rb/ruboty-qiita-github.svg)](https://badge.fury.io/rb/ruboty-qiita-github)
+[![Test](https://github.com/increments/ruboty-qiita-github/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/increments/ruboty-qiita-github/actions/workflows/test.yml)
+[![Maintainability](https://qlty.sh/gh/increments/projects/ruboty-qiita-github/maintainability.svg)](https://qlty.sh/gh/increments/projects/ruboty-qiita-github)
+[![Code Coverage](https://qlty.sh/gh/increments/projects/ruboty-qiita-github/coverage.svg)](https://qlty.sh/gh/increments/projects/ruboty-qiita-github)
 
 Manage GitHub via Ruboty.
 This gem adds `deploy pull request` command to original ruboty-github plugin.
