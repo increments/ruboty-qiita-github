@@ -3,7 +3,7 @@
 module Ruboty
   module Handlers
     class Github < Base
-      ISSUE_PATTERN = %r{(?:https?://[^/]+/)?(?<repo>.+)(?:#|/pull/|/issues/)(?<number>\d+) ?}.freeze
+      ISSUE_PATTERN = %r{<?(?:https?://[^/]+/|[^/]+\.[^/]+/)?(?<repo>[^/]+/[^/]+)(?:#|/pull/|/issues/)(?<number>\d+)>? ?}.freeze
 
       env :GITHUB_BASE_URL, 'Pass GitHub URL if needed (e.g. https://github.example.com)', optional: true
 

@@ -125,6 +125,55 @@ describe Ruboty::Handlers::Github do
     end
   end
 
+  describe 'ISSUE_PATTERN' do
+    subject(:match) { described_class::ISSUE_PATTERN.match(input) }
+
+    context 'with owner/repo#number format' do
+      let(:input) { 'alice/test#123' }
+
+      it 'extracts repo and number' do
+        expect(match[:repo]).to eq('alice/test')
+        expect(match[:number]).to eq('123')
+      end
+    end
+
+    context 'with full URL using /issues/' do
+      let(:input) { 'https://github.com/alice/test/issues/123' }
+
+      it 'extracts repo and number' do
+        expect(match[:repo]).to eq('alice/test')
+        expect(match[:number]).to eq('123')
+      end
+    end
+
+    context 'with full URL using /pull/' do
+      let(:input) { 'https://github.com/alice/test/pull/123' }
+
+      it 'extracts repo and number' do
+        expect(match[:repo]).to eq('alice/test')
+        expect(match[:number]).to eq('123')
+      end
+    end
+
+    context 'with protocol-stripped URL (Slack display text)' do
+      let(:input) { 'github.com/alice/test/pull/123' }
+
+      it 'extracts repo and number' do
+        expect(match[:repo]).to eq('alice/test')
+        expect(match[:number]).to eq('123')
+      end
+    end
+
+    context 'with angle-bracketed URL' do
+      let(:input) { '<https://github.com/alice/test/pull/123>' }
+
+      it 'extracts repo and number' do
+        expect(match[:repo]).to eq('alice/test')
+        expect(match[:number]).to eq('123')
+      end
+    end
+  end
+
   describe '#close_issue' do
     before do
       stub_request(:get, "https://api.github.com/repos/#{user}/#{repository}/issues/#{issue_number}")
@@ -180,6 +229,39 @@ describe Ruboty::Handlers::Github do
 
     context 'with access token' do
       it 'closes specified issue' do
+        call
+      end
+    end
+
+    context 'with full URL format' do
+      let(:body) do
+        "@ruboty close https://github.com/#{user}/#{repository}/issues/#{issue_number}"
+      end
+
+      it 'closes specified issue' do
+        expect(robot).to receive(:say).with(hash_including(body: "Closed #{html_url}"))
+        call
+      end
+    end
+
+    context 'with protocol-stripped URL format (Slack display text)' do
+      let(:body) do
+        "@ruboty close github.com/#{user}/#{repository}/issues/#{issue_number}"
+      end
+
+      it 'closes specified issue' do
+        expect(robot).to receive(:say).with(hash_including(body: "Closed #{html_url}"))
+        call
+      end
+    end
+
+    context 'with angle-bracketed URL format' do
+      let(:body) do
+        "@ruboty close <https://github.com/#{user}/#{repository}/issues/#{issue_number}>"
+      end
+
+      it 'closes specified issue' do
+        expect(robot).to receive(:say).with(hash_including(body: "Closed #{html_url}"))
         call
       end
     end
