@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 0.3.5
+- Fix ISSUE_PATTERN to handle Slack app (Events API) URL formats
+- Add GitHub Actions workflow for gem release via Trusted Publishing
+
 ## 0.3.4
 - Fix bug of v0.3.3
 
